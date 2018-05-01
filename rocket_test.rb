@@ -25,6 +25,30 @@ class RocketTest < Minitest::Test
     assert(rocket.flying?)
   end
 
+  def test_initialize_method_with_arguments_with_numarical_names
+    name = 23
+    colour = 123
+    flying = true
+
+    rocket = Rocket.new({name: name, colour: colour, flying: flying})
+
+    assert_equal(rocket.name, name)
+    assert_equal(rocket.colour, colour)
+    assert(rocket.flying?)
+  end
+
+  def test_initialize_method_with_nil_arguments
+    name = nil
+    colour = nil
+    flying = nil
+
+    rocket = Rocket.new({name: name, colour: colour, flying: flying})
+
+    assert(rocket.name)
+    assert(rocket.colour)
+    refute(rocket.flying?)
+  end
+
   def test_lift_off_when_flying
     rocket = Rocket.new(flying: true)
 
