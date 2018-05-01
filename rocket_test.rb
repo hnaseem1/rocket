@@ -7,7 +7,7 @@ class RocketTest < Minitest::Test
     @rocket = Rocket.new({})
   end
 
-  def test_initialize_method_empty
+  def test_default_rocket_values
     assert(@rocket.name)
     assert(@rocket.colour)
     refute(@rocket.flying?)
@@ -25,16 +25,16 @@ class RocketTest < Minitest::Test
     assert(rocket.flying?)
   end
 
-  def test_initialize_method_with_arguments_with_numarical_names
+  def test_initialize_method_with_numerical_arguments
     name = 23
     colour = 123
-    flying = true
+    # flying = true
 
-    rocket = Rocket.new({name: name, colour: colour, flying: flying})
+    rocket = Rocket.new({name: name, colour: colour})
 
     assert_equal(rocket.name, name)
     assert_equal(rocket.colour, colour)
-    assert(rocket.flying?)
+    # assert(rocket.flying?)
   end
 
   def test_initialize_method_with_nil_arguments
@@ -58,7 +58,7 @@ class RocketTest < Minitest::Test
   def test_lift_off_when_not_flying
 
     assert(@rocket.lift_off)
-
+    assert(@rocket.flying?)
   end
 
   def test_land_when_flying
@@ -66,23 +66,26 @@ class RocketTest < Minitest::Test
 
     assert(rocket.land)
     refute(rocket.flying?)
+
   end
 
   def test_land_when_not_flying
 
+    refute(@rocket.flying?)
     refute(@rocket.land)
+    refute(@rocket.flying?)
 
   end
 
-  def status_when_flying
+  def test_status_when_flying
     rocket = Rocket.new(flying: true)
     msg = rocket.status
     assert_equal(msg, "Rocket #{rocket.name} is flying through the sky!")
   end
 
-  def status_when_not_flying
+  def test_status_when_not_flying
     msg = @rocket.status
-    assert_equal(msg, "Rocket #{name} is ready for lift off!")
+    assert_equal(msg, "Rocket #{@rocket.name} is ready for lift off!")
   end
 
 end
